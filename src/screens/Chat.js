@@ -4,6 +4,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 import Profile from '../components/Profile';
 import Message from '../components/Message';
@@ -21,9 +22,24 @@ export default function Chat() {
     getData();
   }, []);
   const renderProfiles = () =>
-    data.map(({id, login, avatar_url}) => (
-      <Profile key={id} username={login} uri={avatar_url} />
-    ));
+    data.length > 0 ? (
+      data.map(({id, login, avatar_url}) => (
+        <Profile key={id} username={login} uri={avatar_url} />
+      ))
+    ) : (
+      <SkeletonPlaceholder>
+        {[...Array(7).keys()].map((_key) => (
+          <SkeletonPlaceholder.Item
+            key={String(_key)}
+            width={60}
+            height={60}
+            borderRadius={50}
+            marginRight={16}
+            marginBottom={8}
+          />
+        ))}
+      </SkeletonPlaceholder>
+    );
   return (
     <LinearGradient
       colors={['#f26a50', '#f20042', '#f20045']}
@@ -47,15 +63,50 @@ export default function Chat() {
           <Entypo name="dots-three-horizontal" color="#000119" size={30} />
         </View>
         <View style={styles.messages}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {data.map((item) => (
-              <Message
-                key={item.id}
-                username={item.login}
-                uri={item.avatar_url}
-                count={Math.ceil(Math.random() * 3)}
-              />
-            ))}
+          <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+            {data.length > 0
+              ? data.map((item) => (
+                  <Message
+                    key={item.id}
+                    username={item.login}
+                    uri={item.avatar_url}
+                    count={Math.ceil(Math.random() * 3)}
+                  />
+                ))
+              : [...Array(10).keys()].map((_key) => (
+                  <View key={String(_key)} style={styles.skeletonMessages}>
+                    <SkeletonPlaceholder>
+                      <SkeletonPlaceholder.Item
+                        flexDirection="row"
+                        justifyContent="space-between"
+                        alignItems="center">
+                        <SkeletonPlaceholder.Item
+                          flexDirection="row"
+                          alignItems="center">
+                          <SkeletonPlaceholder.Item
+                            width={60}
+                            height={60}
+                            borderRadius={50}
+                          />
+                          <SkeletonPlaceholder.Item marginLeft={20}>
+                            <SkeletonPlaceholder.Item
+                              width={200}
+                              height={16}
+                              borderRadius={4}
+                            />
+                            <SkeletonPlaceholder.Item
+                              marginTop={8}
+                              width={160}
+                              height={12}
+                              borderRadius={4}
+                            />
+                          </SkeletonPlaceholder.Item>
+                        </SkeletonPlaceholder.Item>
+                        <SkeletonPlaceholder.Item width={60} height={10} />
+                      </SkeletonPlaceholder.Item>
+                    </SkeletonPlaceholder>
+                  </View>
+                ))}
           </ScrollView>
         </View>
       </View>
@@ -107,5 +158,8 @@ const styles = StyleSheet.create({
   },
   messages: {
     paddingHorizontal: 16,
+  },
+  skeletonMessages: {
+    marginTop: 16,
   },
 });
