@@ -7,6 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 import Profile from '../components/Profile';
 import Message from '../components/Message';
+import {weeks} from '../utils/dates';
 
 const URL = 'https://api.github.com/users';
 
@@ -42,7 +43,7 @@ export default function Chat() {
       </View>
       <View style={styles.messagesContainer}>
         <View style={styles.todayMessages}>
-          <Text style={styles.today}>Sunday</Text>
+          <Text style={styles.today}>{weeks[new Date().getDay()]}</Text>
           <Entypo name="dots-three-horizontal" color="#000119" size={30} />
         </View>
         <View style={styles.messages}>
