@@ -52,7 +52,7 @@ export default function Chat() {
                 key={item.id}
                 username={item.login}
                 uri={item.avatar_url}
-                count={Math.floor(Math.random() * 3)}
+                count={Math.ceil(Math.random() * 3)}
               />
             ))}
           </ScrollView>
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   },
   todayMessages: {
     paddingHorizontal: 16,
+    paddingBottom: 8,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
