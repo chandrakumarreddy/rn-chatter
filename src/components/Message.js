@@ -24,7 +24,7 @@ export default function Message({username, uri, count}) {
       <View style={styles.cover}>
         <Image source={{uri}} style={styles.avatar} />
         <View style={styles.content}>
-          <Text style={styles.userName}>{username}</Text>
+          <Text style={styles.username}>{username}</Text>
           <Text style={styles.text}>Hello, How are u </Text>
         </View>
       </View>
@@ -63,6 +63,13 @@ const styles = StyleSheet.create({
   },
   username: {
     color: '#000119',
+    fontWeight: '500',
+    fontSize: 16,
+  },
+  text: {
+    color: '#b6b6b6',
+    fontSize: 11,
+    marginTop: 4,
   },
   duration: {
     color: '#000119',
