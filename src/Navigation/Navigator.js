@@ -16,7 +16,6 @@ const TabNavigation = () => (
       activeTintColor: '#f2404c',
       inactiveTintColor: '#000119',
       style: {
-        height: 75,
         backgroundColor: '#FFF',
         elevation: 2,
       },

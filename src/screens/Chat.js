@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -45,6 +45,7 @@ export default function Chat() {
       colors={['#f26a50', '#f20042', '#f20045']}
       style={styles.container}>
       <View style={styles.header}>
+        <MaterialIcons name="menu" color="#FFF" size={30} />
         <Text style={styles.title}>Chat</Text>
         <MaterialIcons name="add" color="#FFF" size={30} />
       </View>
@@ -117,15 +118,15 @@ export default function Chat() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
+    paddingTop: Platform.OS === 'android' ? 0 : 54,
   },
   header: {
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   title: {
-    flex: 1,
     color: '#fff',
     fontSize: 24,
   },
