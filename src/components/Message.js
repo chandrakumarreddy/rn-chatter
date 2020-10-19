@@ -16,7 +16,8 @@ function randomTime() {
 export default function Message({username, uri, count}) {
   const navigator = useNavigation();
   return (
-    <TouchableWithoutFeedback onPress={() => navigator.navigate('Discussion')}>
+    <TouchableWithoutFeedback
+      onPress={() => navigator.navigate('Discussion', {username})}>
       <View style={styles.container}>
         {count > 0 ? (
           <LinearGradient
