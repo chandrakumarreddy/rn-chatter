@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 function randomTime() {
   const hrs = Math.round(Math.random() * 24);
@@ -12,24 +14,27 @@ function randomTime() {
 }
 
 export default function Message({username, uri, count}) {
+  const navigator = useNavigation();
   return (
-    <View style={styles.container}>
-      {count > 0 ? (
-        <LinearGradient
-          colors={['#ccc', '#ccc', '#ccc']}
-          style={styles.gradientStyle}>
-          <Text style={styles.count}>{count}</Text>
-        </LinearGradient>
-      ) : null}
-      <View style={styles.cover}>
-        <Image source={{uri}} style={styles.avatar} />
-        <View style={styles.content}>
-          <Text style={styles.username}>{username}</Text>
-          <Text style={styles.text}>Hello, How are u </Text>
+    <TouchableWithoutFeedback onPress={() => navigator.navigate('Discussion')}>
+      <View style={styles.container}>
+        {count > 0 ? (
+          <LinearGradient
+            colors={['#ccc', '#ccc', '#ccc']}
+            style={styles.gradientStyle}>
+            <Text style={styles.count}>{count}</Text>
+          </LinearGradient>
+        ) : null}
+        <View style={styles.cover}>
+          <Image source={{uri}} style={styles.avatar} />
+          <View style={styles.content}>
+            <Text style={styles.username}>{username}</Text>
+            <Text style={styles.text}>Hello, How are u </Text>
+          </View>
         </View>
+        <Text style={styles.duration}>{randomTime()}</Text>
       </View>
-      <Text style={styles.duration}>{randomTime()}</Text>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
